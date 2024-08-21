@@ -23,7 +23,6 @@ public class EX12 {
     }
 }
 /*
-Claro! Aqui está a tabela do teste de mesa:
 
 | Passo | Descrição                                    | num1 | num2 | Cálculo                  | Resultado                          |
 |-------|----------------------------------------------|------|------|--------------------------|------------------------------------|
