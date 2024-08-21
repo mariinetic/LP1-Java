@@ -18,3 +18,12 @@ public class EX9 {
         scanner.close();
     }
 }
+/* Teste de Mesa:
+
+| Passo | Descrição                         | totalMacas | Condição (totalMacas >= 12)| Resultado                                |
+|-------|-----------------------------------|------------|----------------------------|------------------------------------------|
+| 1     | Entrada: Digite o total de maçãs  | 15         | true                       | "A compra de maçãs será de R$: 15"       |
+| 2     | Entrada: Digite o total de maçãs  | 10         | false                      | "A compra de maçãs será de R$: 13.0"     |
+| 3     | Entrada: Digite o total de maçãs  | 12         | true                       | "A compra de maçãs será de R$: 12"       |
+
+*/
