@@ -25,3 +25,14 @@ public class EX14 {
         scanner.close();
     }
 }
+
+/*
+
+| Passo | Descrição                                    | hora_Inicio | hora_Fim | Cálculo                           | Resultado                   |
+|-------|----------------------------------------------|-------------|----------|-----------------------------------|-----------------------------|
+| 1     | Entrada: Hora de início                      | 9           |          |                                   |                             |
+| 2     | Entrada: Hora de fim                         | 17          | 17       |                                   |                             |
+| 3     | Verificar se hora_Fim >= hora_Inicio         | 9           | 17       | `17 >= 9`                         | Verdadeiro (true)           |
+| 4     | Calcular duração (hora_Fim - hora_Inicio)    | 9           | 17       | `17 - 9`                          | 8                           |
+| 5     | Exibir mensagem: "O jogo durou por 8 horas." | 9           | 17       |                                   | "O jogo durou por 8 horas." |
+*/
