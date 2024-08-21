@@ -22,3 +22,13 @@ public class EX12 {
         scanner.close();
     }
 }
+/*
+Claro! Aqui está a tabela do teste de mesa:
+
+| Passo | Descrição                                    | num1 | num2 | Cálculo                  | Resultado                          |
+|-------|----------------------------------------------|------|------|--------------------------|------------------------------------|
+| 1     | Entrada: Primeiro número                     | 7    |      |                          |                                    |
+| 2     | Entrada: Segundo número                      | 7    | 5    |                          |                                    |
+| 3     | Verificar se num1 > num2                     | 7    | 5    | `7 > 5`                  | Verdadeiro (true)                  |
+| 4     | Exibir mensagem: "O maior valor é: 7"        | 7    | 5    |                          | "O maior valor é: 7"               |
+*/
