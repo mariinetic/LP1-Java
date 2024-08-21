@@ -17,30 +17,6 @@ public class EX1 {
     }
 }
 
-Aqui está o teste de mesa corrigido para o código que você compartilhou:
-
-### Código:
-
-```java
-import java.util.Scanner;
-
-public class EX1 {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Digite sua idade em anos:");
-        int anos = scanner.nextInt();
-        
-        int a_dias = anos * 365;
-        int meses = anos * 12;
-        int m_dias = meses * 30;
-        
-        System.out.println("Sua idade em dias:" + a_dias);
-
-        scanner.close();
-    }
-}
-
 /* Teste de Mesa:
 
 | Passo | Descrição                            | anos | meses | a_dias | m_dias | Cálculo                | Resultado |
