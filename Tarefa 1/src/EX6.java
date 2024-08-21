@@ -13,3 +13,13 @@ public class EX6 {
         scanner.close();
     }
 }
+/* Teste de Mesa:
+
+| Passo | Descrição                                      | temperatura_F | temperatura_C |                        Cálculo                                  | Resultado                     |
+|-------|------------------------------------------------|---------------|---------------|-----------------------------------------------------------------|-------------------------------|
+| 1     | Entrada: Digite a temperatura em °F            | 98            |               |                                                                 |                               |
+| 2     | Calcular a temperatura em °C                   | 98            |               | `(temperatura_F - 32) * 5 / 9`                                  | (98 - 32) * 5 / 9 = 36        |
+| 3     | Exibir a temperatura em °C                     | 98            | 36            |                                                                 | "A temperatura é 36 °C"       |
+
+*/
+
