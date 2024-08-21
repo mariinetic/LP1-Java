@@ -25,3 +25,17 @@ public class EX15 {
         scanner.close();
     }
 }
+
+/*
+
+
+| Passo | Descrição                                     | hora_mes | hora_salario | Cálculo                                      | Resultado                     |
+|-------|-----------------------------------------------|----------|--------------|----------------------------------------------|-------------------------------|
+| 1     | Entrada: Número de horas trabalhadas no mês   | 170      |              |                                              |                               |
+| 2     | Entrada: Salário por hora                     | 20       | 20           |                                              |                               |
+| 3     | Verificar se hora_mes > limite_horas          | 170      | 20           | `170 > 160`                                  | Verdadeiro (true)             |
+| 4     | Calcular horas extras                         | 170      | 20           | `170 - 160`                                  | 10                            |
+| 5     | Calcular valor da hora extra                  | 170      | 20           | `20 * 1.5`                                   | 30                            |
+| 6     | Calcular total com horas extras               | 170      | 20           | `(160 * 20) + (10 * 30)`                     | 3700                          |
+| 7     | Exibir mensagem                               | 170      | 20           |                                              | "Seu salário esse mês é R$: 3700" |
+*/
