@@ -16,3 +16,13 @@ public class EX8 {
         scanner.close();
     }
 }
+/* Teste de Mesa:
+
+| Passo | Descrição                             | valor | Condição (valor >= 0) | Resultado           | 
+|-------|---------------------------------------|-------|-----------------------|---------------------|
+| 1     | Entrada: Digite um valor              | 5     | true                  | "É positivo."       | 
+| 2     | Entrada: Digite um valor              | -3    | false                 | "É negativo."       |
+| 3     | Entrada: Digite um valor              | 0     | true                  | "É positivo."       |
+
+*/
+
