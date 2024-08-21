@@ -22,3 +22,13 @@ public class EX13 {
         scanner.close();
     }
 }
+
+/*
+
+| Passo | Descrição                                    | val1 | val2 | Cálculo                  | Resultado                          |
+|-------|----------------------------------------------|------|------|--------------------------|------------------------------------|
+| 1     | Entrada: Primeiro valor                      | 5    |      |                          |                                    |
+| 2     | Entrada: Segundo valor                       | 8    | 5    |                          |                                    |
+| 3     | Verificar se val1 < val2                     | 5    | 8    | `5 < 8`                  | Verdadeiro (true)                  |
+| 4     | Exibir mensagem: "Em ordem crescente: 5, 8"  | 5    | 8    |                          | "Em ordem crescente: 5, 8"         |
+*/
