@@ -40,7 +40,7 @@ public class EX17 {
 
 /* Teste de Mesa:
 
-| Passo | Descrição                            | P1   | E1   | E2   | API  | X    | SUB  | mediaIntermediaria | media | Cálculo                                                                                   | Resultado               |
+| Passo | Descrição                            | P1   | E1   | E2   | API  | X    | SUB  | mediaIntermediaria| media |                                          Cálculo                                         |        Resultado        |
 |-------|--------------------------------------|------|------|------|------|------|------|-------------------|-------|------------------------------------------------------------------------------------------|-------------------------|
 | 1     | Entrada: Nota da P1                  | 7.0  |      |      |      |      |      |                   |       |                                                                                          |                         |
 | 2     | Entrada: Nota do E1                  | 7.0  | 6.5  |      |      |      |      |                   |       |                                                                                          |                         |
