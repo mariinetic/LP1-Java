@@ -72,24 +72,23 @@ public class Fracao {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Digite o numerador e denominador da primeira fração:");
-        System.out.print("Numerador 1: ");
-        int num1 = scanner.nextInt();
-        System.out.print("Denominador 1: ");
-        int den1 = scanner.nextInt();
+        System.out.print("Quantas frações você deseja inserir? ");
+        int quantidade = scanner.nextInt();
 
-        System.out.println("Digite o numerador e denominador da segunda fração:");
-        System.out.print("Numerador 2: ");
-        int num2 = scanner.nextInt();
-        System.out.print("Denominador 2: ");
-        int den2 = scanner.nextInt();
+        Fracao[] fracoes = new Fracao[quantidade];
 
-        Fracao f1 = new Fracao(num1, den1);
-        Fracao f2 = new Fracao(num2, den2);
+        for (int i = 0; i < quantidade; i++) {
+            System.out.println("Digite o numerador e denominador da fração " + (i + 1) + ":");
+            System.out.print("Numerador " + (i + 1) + ": ");
+            int num = scanner.nextInt();
+            System.out.print("Denominador " + (i + 1) + ": ");
+            int den = scanner.nextInt();
+            fracoes[i] = new Fracao(num, den);
+        }
 
         int opcaoMenu;
 
-        do { 
+        do {
             System.out.println("1 - Soma");
             System.out.println("2 - Subtração");
             System.out.println("3 - Multiplicação");
@@ -98,27 +97,77 @@ public class Fracao {
             System.out.print("Selecione uma opção: ");
             opcaoMenu = scanner.nextInt();
 
-            switch (opcaoMenu) {
-                case 1: 
-                System.out.println("Soma: " + f1.somar(f2));
-                break;
-                case 2: 
-                System.out.println("Subtração: " + f1.subtrair(f2));
-                break;
-                case 3: 
-                System.out.println("Multiplicação: " + f1.multiplicar(f2));
-                break;
-                case 4: 
-                System.out.println("Divisão: " + f1.dividir(f2));
-                break;
-                case 5:
-                System.out.println("Saindo...");
-                break;
-                default:
-                System.out.println("Opção inválida.");
+            if (quantidade < 2) {
+                System.out.println("Você precisa de pelo menos duas frações para realizar operações.");
+                continue;
+            }
+
+            Fracao resultado = fracoes[0];
+            for (int i = 1; i < quantidade; i++) {
+                switch (opcaoMenu) {
+                    case 1:
+                        resultado = resultado.somar(fracoes[i]);
+                        break;
+                    case 2:
+                        resultado = resultado.subtrair(fracoes[i]);
+                        break;
+                    case 3:
+                        resultado = resultado.multiplicar(fracoes[i]);
+                        break;
+                    case 4:
+                        resultado = resultado.dividir(fracoes[i]);
+                        break;
+                    case 5:
+                        System.out.println("Saindo...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida.");
+                        break;
+                }
+            }
+
+            if (opcaoMenu >= 1 && opcaoMenu <= 4) {
+                System.out.println("Resultado: " + resultado);
             }
         } while (opcaoMenu != 5);
 
         scanner.close();
     }
 }
+/* Teste de Mesa 2/5+3/7 :
+
+| Passo | Descrição                            | num1 | den1 | num2 | den2 | Operação        | Cálculo                             | Resultado |
+|-------|--------------------------------------|------|------|------|------|-----------------|-------------------------------------|-----------|
+| 1     | Criação da primeira fração            | 2    | 5    |      |      | Simplificação   | 2/5                                 | 2/5       |
+| 2     | Criação da segunda fração             |      |      | 3    | 7    | Simplificação   | 3/7                                 | 3/7       |
+| 3     | Soma das frações                      | 2    | 5    | 3    | 7    | Soma            | (2*7 + 3*5) / (5*7)                 | 29/35     |
+*/
+
+/* Teste de Mesa 4/3-2/7 :
+
+| Passo | Descrição                            | num1 | den1 | num2 | den2 | Operação        | Cálculo                             | Resultado |
+|-------|--------------------------------------|------|------|------|------|-----------------|-------------------------------------|-----------|
+| 1     | Criação da primeira fração            | 4    | 3    |      |      | Simplificação   | 4/3                                 | 4/3       |
+| 2     | Criação da segunda fração             |      |      | 2    | 7    | Simplificação   | 2/7                                 | 2/7       |
+| 3     | Subtração das frações                 | 4    | 3    | 2    | 7    | Subtração       | (4*7 - 2*3) / (3*7)                 | 22/21     |
+*/
+
+/* Teste de Mesa 5/3*7/4:
+
+| Passo | Descrição                            | num1 | den1 | num2 | den2 | Operação        | Cálculo                             | Resultado |
+|-------|--------------------------------------|------|------|------|------|-----------------|-------------------------------------|-----------|
+| 1     | Criação da primeira fração            | 5    | 3    |      |      | Simplificação   | 5/3                                 | 5/3       |
+| 2     | Criação da segunda fração             |      |      | 7    | 4    | Simplificação   | 7/4                                 | 7/4       |
+| 3     | Multiplicação das frações             | 5    | 3    | 7    | 4    | Multiplicação   | (5*7) / (3*4)                       | 35/12     |
+*/
+
+/* Teste de Mesa 2+1/3-5/4:
+
+| Passo | Descrição                            | num1 | den1 | num2 | den2 | num3 | den3 | Operação          | Cálculo                             | Resultado |
+|-------|--------------------------------------|------|------|------|------|------|------|-------------------|-------------------------------------|-----------|
+| 1     | Criação da primeira fração (2)        | 2    | 1    |      |      |      |      | Simplificação     | 2/1                                 | 2/1       |
+| 2     | Criação da segunda fração             |      |      | 1    | 3    |      |      | Simplificação     | 1/3                                 | 1/3       |
+| 3     | Soma da primeira e segunda fração     | 2    | 1    | 1    | 3    |      |      | Soma              | (2*3 + 1*1) / (1*3)                 | 7/3       |
+| 4     | Criação da terceira fração            |      |      |      |      | 5    | 4    | Simplificação     | 5/4                                 | 5/4       |
+| 5     | Subtração do resultado da soma pela terceira fração | 7/3   |      | 5    | 4    | Subtração         | (7*4 - 5*3) / (3*4)                 | 13/12     |
+*/
