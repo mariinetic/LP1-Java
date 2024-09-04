@@ -151,23 +151,3 @@ public class Fracao {
 | 2     | Criação da segunda fração             |      |      | 2    | 7    | Simplificação   | 2/7                                 | 2/7       |
 | 3     | Subtração das frações                 | 4    | 3    | 2    | 7    | Subtração       | (4*7 - 2*3) / (3*7)                 | 22/21     |
 */
-
-/* Teste de Mesa 5/3*7/4:
-
-| Passo | Descrição                            | num1 | den1 | num2 | den2 | Operação        | Cálculo                             | Resultado |
-|-------|--------------------------------------|------|------|------|------|-----------------|-------------------------------------|-----------|
-| 1     | Criação da primeira fração            | 5    | 3    |      |      | Simplificação   | 5/3                                 | 5/3       |
-| 2     | Criação da segunda fração             |      |      | 7    | 4    | Simplificação   | 7/4                                 | 7/4       |
-| 3     | Multiplicação das frações             | 5    | 3    | 7    | 4    | Multiplicação   | (5*7) / (3*4)                       | 35/12     |
-*/
-
-/* Teste de Mesa 2+1/3-5/4:
-
-| Passo | Descrição                            | num1 | den1 | num2 | den2 | num3 | den3 | Operação          | Cálculo                             | Resultado |
-|-------|--------------------------------------|------|------|------|------|------|------|-------------------|-------------------------------------|-----------|
-| 1     | Criação da primeira fração (2)        | 2    | 1    |      |      |      |      | Simplificação     | 2/1                                 | 2/1       |
-| 2     | Criação da segunda fração             |      |      | 1    | 3    |      |      | Simplificação     | 1/3                                 | 1/3       |
-| 3     | Soma da primeira e segunda fração     | 2    | 1    | 1    | 3    |      |      | Soma              | (2*3 + 1*1) / (1*3)                 | 7/3       |
-| 4     | Criação da terceira fração            |      |      |      |      | 5    | 4    | Simplificação     | 5/4                                 | 5/4       |
-| 5     | Subtração do resultado da soma pela terceira fração | 7/3   |      | 5    | 4    | Subtração         | (7*4 - 5*3) / (3*4)                 | 13/12     |
-*/
