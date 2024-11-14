@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:controller="fatec.controllers.InicialController" 
+            prefHeight="600.0" 
+            prefWidth="800.0" 
+            style="-fx-background-color: linear-gradient(#ffe6f2, #ffffff);" 
+            xmlns="http://javafx.com/javafx/8.0.171" 
+            xmlns:fx="http://javafx.com/fxml/1">
+    
+    <ImageView fitHeight="200.0" fitWidth="400.0" layoutX="319.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../images/hk-gif.gif" />
+        </image>
+    </ImageView>
+
+    <Text layoutX="284.0" layoutY="260.0" style="-fx-font-size: 24px; -fx-fill: #ff69b4; -fx-font-family: 'Comic Sans MS';" text="E2 CLASSES E OBJETOS" />
+    
+    <Button  fx:id="enterButton" onAction="#handleEnter" layoutX="344.0" layoutY="329.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="169.0" 
+            style="-fx-background-color: #ff99cc; -fx-text-fill: white; -fx-font-size: 18px; -fx-border-radius: 20px; -fx-background-radius: 20px;" 
+            text="Enter" />
+
+    <ImageView fitHeight="143.0" fitWidth="158.0" layoutX="6.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 0.8;">
+        <image>
+            <Image url="@../images/coracao.gif" />
+        </image>
+    </ImageView>
+
+    <ImageView fitHeight="167.0" fitWidth="169.0" layoutX="631.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../images/coracao.gif" />
+        </image>
+    </ImageView>
+</AnchorPane>
