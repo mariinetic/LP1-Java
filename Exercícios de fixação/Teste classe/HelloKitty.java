@@ -22,6 +22,5 @@ class TestaClasse {
         kitty.greet();
         kitty.showFavoriteFood();
 
-        // Implement menu loop here as required
     }
 }
