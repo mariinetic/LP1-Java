@@ -7,11 +7,16 @@ public class Cachorro {
     private int idade;
     private int id;
 
-    public Cachorro(String _nome, String _raca, double _peso, int _idade) {
+    public Cachorro(String _nome, String _raca, double _peso) {
         this.nome = _nome;
         this.raca = _raca;
         this.peso = _peso;
-        this.idade = _idade;
+    }
+    public Cachorro(int _id, String _nome, String _raca, double _peso) {
+        this.id = _id;
+        this.nome = _nome;
+        this.raca = _raca;
+        this.peso = _peso;
     }
 
     public String getNome() {

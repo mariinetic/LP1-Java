@@ -21,10 +21,15 @@ import fatec.db.SanrioDAO;
 import fatec.db.TiposDeCabeloDAO;
 import fatec.db.TrabalhadoresDeEscritorioDAO;
 import fatec.utils.mbox;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ClassController {
 
@@ -38,13 +43,30 @@ public class ClassController {
     @FXML
     private Button btnFloresCriar;
     @FXML
-    private Button btnFloresVerCadastro;
-    @FXML
     private Button btnFloresMurchar;
     @FXML
     private Button btnFloresFlorescer;
 
-    private Flores flor;
+    private Flores florSelecionada;
+
+    @FXML
+    private TableView<Flores> tableFlores;
+
+    @FXML
+    private TableColumn<Flores, String> FloresNomeColumn;
+    @FXML
+    private TableColumn<Flores, String> FloresCorColumn;
+    @FXML
+    private TableColumn<Flores, String> FloresTipoColumn;
+
+    @FXML
+    public void tbSelectedFlores() {
+        FloresNomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        FloresCorColumn.setCellValueFactory(new PropertyValueFactory<>("cor"));
+        FloresTipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+
+        FloresPreencherTableView();
+    }
 
     @FXML
     private void FloresCriar() {
@@ -52,35 +74,86 @@ public class ClassController {
         String cor = txtFloresCor.getText();
         String tipo = txtFloresTipo.getText();
 
-        flor = new Flores(nome, cor, tipo);
-        FloresDAO dao = new FloresDAO();
-        dao.inserir(flor);
-        mbox.ShowMessageBox("Flor", "Flor cadastrada com sucesso");
+        try {
+            Flores flor = new Flores(nome, cor, tipo);
+            FloresDAO.inserir(flor);
+            mbox.ShowMessageBox("Flor", "Flor cadastrada com sucesso");
+            FloresPreencherTableView();
+        } catch (Exception e) {
+
+        }
     }
 
     @FXML
-    private void FloresVerCadastro() {
-        String message = "Nome: " + flor.getNome()
-                + "\nCor: " + flor.getCor()
-                + "\nTipo: " + flor.getTipo();
+    private void FloresEditar() {
+        String nome = txtFloresNome.getText();
+        String cor = txtFloresCor.getText();
+        String tipo = txtFloresTipo.getText();
 
-        mbox.ShowMessageBox("Flor cadastrada", message);
+        try {
+            System.out.println(String.valueOf(florSelecionada.getNome()));
+            Flores flor = new Flores(florSelecionada.getId(), nome, cor, tipo);
+            FloresDAO.atualizar(flor);
+            mbox.ShowMessageBox("Flor", "Flor editada com sucesso");
+            FloresPreencherTableView();
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    private void FloresExcluir() {
+        try {
+            FloresDAO.excluir(florSelecionada.getId());
+            mbox.ShowMessageBox("Flor", "Flor excluida com sucesso");
+            FloresPreencherTableView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void FlorMurchar() {
-        String title = flor.Murchar();
-        String gifPath = getClass().getResource("/fatec/gifs/flor-murchar.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = florSelecionada.Murchar();
+            String gifPath = getClass().getResource("/gifs/flor-murchar.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+        }
     }
 
     @FXML
     private void FlorFlorescer() {
-        String title = flor.Florescer();
-        String gifPath = getClass().getResource("/fatec/gifs/flor-florescer.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = florSelecionada.Florescer();
+            String gifPath = getClass().getResource("/gifs/flor-florescer.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+        }
     }
 
+    @FXML
+    public void FloresClickTableView() {
+        FloresLimparCampos();
+        florSelecionada = tableFlores.getSelectionModel().getSelectedItem();
+        txtFloresNome.setText(florSelecionada.getNome());
+        txtFloresCor.setText(String.valueOf(florSelecionada.getCor()));
+        txtFloresTipo.setText(String.valueOf(florSelecionada.getTipo()));
+    }
+
+    @FXML
+    private void FloresPreencherTableView() {
+        try {
+            tableFlores.setItems(FXCollections.observableArrayList(FloresDAO.listar()));
+            FloresLimparCampos();
+        } catch (Exception e) {
+        }
+    }
+
+    private void FloresLimparCampos() {
+        txtFloresNome.setText("");
+        txtFloresCor.setText("");
+        txtFloresTipo.setText("");
+    }
     //#endregion Flores
     //#region Kpop
     @FXML
@@ -100,43 +173,112 @@ public class ClassController {
     @FXML
     private Button btnKpopDancar;
 
-    private KpopSingers cantora;
+    private KpopSingers cantoraSelecionada;
 
     @FXML
-    private void KpopCriar() {
-        String nome = txtKpopNome.getText();
-        int idade = Integer.parseInt(txtKpopIdade.getText());
-        String grupo = txtKpopGrupo.getText();
-        double altura = Double.parseDouble(txtKpopAltura.getText());
+    private TableView<KpopSingers> tableKpop;
 
-        cantora = new KpopSingers(nome, idade, grupo, altura);
-        KpopSingersDAO dao = new KpopSingersDAO();
-        dao.inserir(cantora);
-        mbox.ShowMessageBox("Cantora K-Pop", "Cantora cadastrada com sucesso");
+    @FXML
+    private TableColumn<KpopSingers, String> KpopNomeColumn;
+    @FXML
+    private TableColumn<KpopSingers, Integer> KpopIdadeColumn;
+    @FXML
+    private TableColumn<KpopSingers, String> KpopGrupoColumn;
+
+    @FXML
+    public void tbSelectedKpop() {
+        KpopNomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        KpopIdadeColumn.setCellValueFactory(new PropertyValueFactory<>("idade"));
+        KpopGrupoColumn.setCellValueFactory(new PropertyValueFactory<>("grupo"));
+
+        KpopPreencherTableView();
     }
 
     @FXML
-    private void KpopVerCadastro() {
-        String message = "Nome: " + cantora.getNome()
-                + "\nIdade: " + cantora.getIdade()
-                + "\nGrupo: " + cantora.getGrupo()
-                + "\nAltura: " + cantora.getAltura();
+    private void KpopCriar() {
+        try {
+            String nome = txtKpopNome.getText();
+            int idade = Integer.parseInt(txtKpopIdade.getText());
+            String grupo = txtKpopGrupo.getText();
 
-        mbox.ShowMessageBox("Cadastro da Cantora", message);
+            KpopSingers cantora = new KpopSingers(nome, idade, grupo);
+            KpopSingersDAO.inserir(cantora);
+            mbox.ShowMessageBox("Cantora K-Pop", "Cantora cadastrada com sucesso");
+            KpopPreencherTableView();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void KpopEditar() {
+        try {
+            String nome = txtKpopNome.getText();
+            int idade = Integer.parseInt(txtKpopIdade.getText());
+            String grupo = txtKpopGrupo.getText();
+
+            KpopSingers cantora = new KpopSingers(cantoraSelecionada.getId(), nome, idade, grupo);
+            KpopSingersDAO.inserir(cantora);
+            mbox.ShowMessageBox("Cantora K-Pop", "Cantora cadastrada com sucesso");
+            KpopPreencherTableView();
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    private void KpopExcluir() {
+        try {
+            KpopSingersDAO.excluir(cantoraSelecionada.getId());
+            mbox.ShowMessageBox("Kpop", "Kpop excluida com sucesso");
+            KpopPreencherTableView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void KpopCantar() {
-        String title = cantora.Cantar();
-        String gifPath = getClass().getResource("/fatec/gifs/kpop-cantar.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = cantoraSelecionada.Cantar();
+            String gifPath = getClass().getResource("/gifs/kpop-cantar.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+        }
     }
 
     @FXML
     private void KpopDancar() {
-        String title = cantora.Dancar();
-        String gifPath = getClass().getResource("/fatec/gifs/kpop-dancar.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = cantoraSelecionada.Dancar();
+            String gifPath = getClass().getResource("/gifs/kpop-dancar.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    private void KpopClickTableView() {
+        KpopLimparCampos();
+        cantoraSelecionada = tableKpop.getSelectionModel().getSelectedItem();
+        txtKpopNome.setText(cantoraSelecionada.getNome());
+        txtKpopIdade.setText(String.valueOf(cantoraSelecionada.getIdade()));
+        txtKpopGrupo.setText(String.valueOf(cantoraSelecionada.getGrupo()));
+    }
+
+    @FXML
+    private void KpopPreencherTableView() {
+        try {
+            tableKpop.setItems(FXCollections.observableArrayList(KpopSingersDAO.listar()));
+            KpopLimparCampos();
+        } catch (Exception e) {
+        }
+    }
+
+    private void KpopLimparCampos() {
+        txtKpopNome.setText("");
+        txtKpopIdade.setText("");
+        txtKpopGrupo.setText("");
     }
 
     //#endregion Kpop
@@ -158,43 +300,127 @@ public class ClassController {
     @FXML
     private Button btnCabeloPentear;
 
-    private TiposDeCabelo cabelo;
+    private TiposDeCabelo cabeloSelecionado;
 
     @FXML
-    private void CabeloCriar() {
-        String tipo = txtCabeloTipo.getText();
-        String cor = txtCabeloCor.getText();
-        double comprimento = Double.parseDouble(txtCabeloComprim.getText());
-        boolean natural = chkCabeloNatural.isSelected();
+    private TableView<TiposDeCabelo> tableCabelo;
 
-        cabelo = new TiposDeCabelo(tipo, cor, comprimento, natural);
-        TiposDeCabeloDAO dao = new TiposDeCabeloDAO();
-        dao.inserir(cabelo);
-        mbox.ShowMessageBox("Cabelos", "Cabelo cadastrado com sucesso");
+    @FXML
+    private TableColumn<TiposDeCabelo, String> CabeloTipoColumn;
+    @FXML
+    private TableColumn<TiposDeCabelo, String> CabeloCorColumn;
+    @FXML
+    private TableColumn<TiposDeCabelo, String> CabeloComprimentoColumn;
+    @FXML
+    private TableColumn<TiposDeCabelo, Boolean> CabeloNaturalColumn;
+
+    @FXML
+    public void tbSelectedCabelo() {
+        CabeloTipoColumn.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+        CabeloCorColumn.setCellValueFactory(new PropertyValueFactory<>("cor"));
+        CabeloComprimentoColumn.setCellValueFactory(new PropertyValueFactory<>("comprimento"));
+        CabeloNaturalColumn.setCellValueFactory(new PropertyValueFactory<>("isNatural"));
+
+        CabeloNaturalColumn.setCellFactory(column -> new TableCell<TiposDeCabelo, Boolean>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item ? "Sim" : "Não");
+                }
+            }
+        });
+
+        CabeloPreencherTableView();
     }
 
     @FXML
-    private void CabeloVerCadastro() {
-        String message = "Tipo: " + cabelo.getTipo()
-                + "\nCor: " + cabelo.getCor()
-                + "\nComprimento: " + cabelo.getComprimento()
-                + "\nNatural: " + (cabelo.isNatural() ? "Sim" : "Não");
-        mbox.ShowMessageBox("Cabelo cadastrado", message);
+    private void CabeloCriar() {
+        try {
+            String tipo = txtCabeloTipo.getText();
+            String cor = txtCabeloCor.getText();
+            double comprimento = Double.parseDouble(txtCabeloComprim.getText());
+            boolean natural = chkCabeloNatural.isSelected();
+
+            TiposDeCabelo cabelo = new TiposDeCabelo(tipo, cor, comprimento, natural);
+            TiposDeCabeloDAO.inserir(cabelo);
+            mbox.ShowMessageBox("Cabelos", "Cabelo cadastrado com sucesso");
+            CabeloPreencherTableView();
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    private void CabeloEditar() {
+        try {
+            String tipo = txtCabeloTipo.getText();
+            String cor = txtCabeloCor.getText();
+            double comprimento = Double.parseDouble(txtCabeloComprim.getText());
+            boolean natural = chkCabeloNatural.isSelected();
+
+            TiposDeCabelo cabelo = new TiposDeCabelo(cabeloSelecionado.getId(), tipo, cor, comprimento, natural);
+            TiposDeCabeloDAO.atualizar(cabelo);
+            mbox.ShowMessageBox("Cabelos", "Cabelo Editado com sucesso");
+            CabeloPreencherTableView();
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    private void CabeloExcluir() {
+        try {
+            TiposDeCabeloDAO.excluir(cabeloSelecionado.getId());
+            mbox.ShowMessageBox("Cabelos", "Cabelo excluido com sucesso");
+            CabeloPreencherTableView();
+        } catch (Exception e) {
+        }
     }
 
     @FXML
     private void CabeloCortar() {
-
-        String title = cabelo.Cortar();
-        String gifPath = getClass().getResource("/fatec/gifs/cabelo-cortar.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = cabeloSelecionado.Cortar();
+            String gifPath = getClass().getResource("/gifs/cabelo-cortar.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+        }
     }
 
     @FXML
     private void CabeloPentear() {
-        String title = cabelo.Pentear();
-        String gifPath = getClass().getResource("/fatec/gifs/cabelo-pentear.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = cabeloSelecionado.Pentear();
+            String gifPath = getClass().getResource("/gifs/cabelo-pentear.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    private void CabeloClickTableView() {
+        CabeloLimparCampos();
+        cabeloSelecionado = tableCabelo.getSelectionModel().getSelectedItem();
+        txtCabeloTipo.setText(cabeloSelecionado.getTipo());
+        txtCabeloCor.setText(String.valueOf(cabeloSelecionado.getCor()));
+        txtCabeloComprim.setText(String.valueOf(cabeloSelecionado.getComprimento()));
+        chkCabeloNatural.setSelected(cabeloSelecionado.isNatural());
+    }
+
+    private void CabeloPreencherTableView() {
+        try {
+            tableCabelo.setItems(FXCollections.observableArrayList(TiposDeCabeloDAO.listar()));
+            CabeloLimparCampos();
+        } catch (Exception e) {
+        }
+    }
+
+    private void CabeloLimparCampos() {
+        txtCabeloTipo.setText("");
+        txtCabeloCor.setText("");
+        txtCabeloComprim.setText("");
+        chkCabeloNatural.setSelected(false);
     }
 
     //#endregion Cabelos
@@ -225,7 +451,7 @@ public class ClassController {
         double peso = Double.parseDouble(txtCachorroPeso.getText());
         int idade = Integer.parseInt(txtCachorroIdade.getText());
 
-        cachorro = new Cachorro(nome, raca, peso, idade);
+        // cachorro = new Cachorro(nome, raca, peso, idade);
         CachorroDAO dao = new CachorroDAO();
         dao.inserir(cachorro);
         mbox.ShowMessageBox("Cachorro", "Cachorro cadastrado com sucesso");
@@ -243,14 +469,14 @@ public class ClassController {
     @FXML
     private void CachorroCorrer() {
         String title = cachorro.Correr();
-        String gifPath = getClass().getResource("/fatec/gifs/cachorro-correr.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/cachorro-correr.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
     @FXML
     private void CachorroLatir() {
         String title = cachorro.Latir();
-        String gifPath = getClass().getResource("/fatec/gifs/cachorro-latir.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/cachorro-latir.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
@@ -285,33 +511,23 @@ public class ClassController {
         double distSol = Double.parseDouble(txtPlanetaDistSol.getText());
         boolean temAnel = chkPlanetaAnel.isSelected();
 
-        planeta = new Planeta(nome, massa, diametro, distSol, temAnel);
+        // planeta = new Planeta(nome, massa, diametro, distSol, temAnel);
         PlanetaDAO dao = new PlanetaDAO();
         dao.inserir(planeta);
         mbox.ShowMessageBox("Planeta", "Planeta cadastrado com sucesso");
     }
 
     @FXML
-    private void PlanetaVerCadastro() {
-        String message = "Nome: " + planeta.getNome()
-                + "\nMassa: " + planeta.getMassa()
-                + "\nDiâmetro: " + planeta.getDiametro()
-                + "\nDistância do Sol: " + planeta.getDistanciaDoSol()
-                + "\nTem anel: " + (planeta.isTemAnel() ? "Sim" : "Não");
-        mbox.ShowMessageBox("Cadastro do Planeta", message);
-    }
-
-    @FXML
     private void PlanetaGirar() {
         String title = planeta.Girar();
-        String gifPath = getClass().getResource("/fatec/gifs/planeta-girar.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/planeta-girar.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
     @FXML
     private void PlanetaOrbitar() {
         String title = planeta.Orbitar();
-        String gifPath = getClass().getResource("/fatec/gifs/planeta-orbitar.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/planeta-orbitar.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
@@ -368,7 +584,7 @@ public class ClassController {
     @FXML
     private void RefriAbrir() {
         String title = refrigerante.Abrir();
-        String gifPath = getClass().getResource("/fatec/gifs/refri-abrir.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/refri-abrir.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
         estaAberto = true;
     }
@@ -380,7 +596,7 @@ public class ClassController {
             return;
         }
         String title = refrigerante.Servir();
-        String gifPath = getClass().getResource("/fatec/gifs/refri-servir.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/refri-servir.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
@@ -430,14 +646,14 @@ public class ClassController {
     @FXML
     private void SanrioBrincar() {
         String title = personagemSanrio.Brincar();
-        String gifPath = getClass().getResource("/fatec/gifs/sanrio-brincar.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/sanrio-brincar.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
     @FXML
     private void SanrioCozinhar() {
         String title = personagemSanrio.Cozinhar();
-        String gifPath = getClass().getResource("/fatec/gifs/sanrio-cozinhar.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/sanrio-cozinhar.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
@@ -489,21 +705,21 @@ public class ClassController {
     @FXML
     private void VoleiAtacar() {
         String title = jogadora.Atacar();
-        String gifPath = getClass().getResource("/fatec/gifs/volei-atacar.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/volei-atacar.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
     @FXML
     private void VoleiSacar() {
         String title = jogadora.Sacar();
-        String gifPath = getClass().getResource("/fatec/gifs/volei-sacar.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/volei-sacar.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
     @FXML
     private void VoleiBloquear() {
         String title = jogadora.Bloquear();
-        String gifPath = getClass().getResource("/fatec/gifs/volei-bloquear.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/volei-bloquear.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
@@ -550,14 +766,14 @@ public class ClassController {
     @FXML
     private void OfficeTrabalhar() {
         String title = escritorio.Trabalhar();
-        String gifPath = getClass().getResource("/fatec/gifs/office-trabalhar.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/office-trabalhar.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
     @FXML
     private void OfficeReuniao() {
         String title = escritorio.ParticiparDeReuniao();
-        String gifPath = getClass().getResource("/fatec/gifs/office-reuniao.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/office-reuniao.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
@@ -607,14 +823,14 @@ public class ClassController {
             mbox.ShowMessageBox("Salgadinho", "Você não tem salgadinho para comer");
             return;
         }
-        String gifPath = getClass().getResource("/fatec/gifs/salgad-comer.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/salgad-comer.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
     @FXML
     private void SalgadAdd() {
         String title = salgadinho.Add();
-        String gifPath = getClass().getResource("/fatec/gifs/salgad-add.gif").toExternalForm();
+        String gifPath = getClass().getResource("/gifs/salgad-add.gif").toExternalForm();
         mbox.ShowGifMessageBox(title, gifPath);
     }
 

@@ -1,19 +1,20 @@
 package fatec.db;
 
-import fatec.classes.TiposDeCabelo;
-import fatec.db.DatabaseConnection;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fatec.classes.TiposDeCabelo;
+
 public class TiposDeCabeloDAO {
 
-    public void inserir(TiposDeCabelo cabelo) {
-        String sql = "INSERT INTO TiposDeCabelo (tipo, cor, comprimento, is_natural) VALUES (?, ?, ?, ?)";
+    public static void inserir(TiposDeCabelo cabelo) {
+        String sql = "INSERT INTO TiposDeCabelo (tipo, cor, comprimento, isNatural) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, cabelo.getTipo());
             stmt.setString(2, cabelo.getCor());
@@ -26,12 +27,11 @@ public class TiposDeCabeloDAO {
         }
     }
 
-    public TiposDeCabelo buscarPorId(int id) {
+    public static TiposDeCabelo buscarPorId(int id) {
         String sql = "SELECT * FROM TiposDeCabelo WHERE id = ?";
         TiposDeCabelo cabelo = null;
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -41,7 +41,7 @@ public class TiposDeCabeloDAO {
                         rs.getString("tipo"),
                         rs.getString("cor"),
                         rs.getDouble("comprimento"),
-                        rs.getBoolean("is_natural")
+                        rs.getBoolean("isNatural")
                 );
             }
 
@@ -52,20 +52,19 @@ public class TiposDeCabeloDAO {
         return cabelo;
     }
 
-    public List<TiposDeCabelo> listar() {
+    public static List<TiposDeCabelo> listar() {
         String sql = "SELECT * FROM TiposDeCabelo";
         List<TiposDeCabelo> cabelos = new ArrayList<>();
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 TiposDeCabelo cabelo = new TiposDeCabelo(
+                        rs.getInt("id"),
                         rs.getString("tipo"),
                         rs.getString("cor"),
                         rs.getDouble("comprimento"),
-                        rs.getBoolean("is_natural")
+                        rs.getBoolean("isNatural")
                 );
                 cabelos.add(cabelo);
             }
@@ -77,11 +76,10 @@ public class TiposDeCabeloDAO {
         return cabelos;
     }
 
-    public void atualizar(TiposDeCabelo cabelo) {
-        String sql = "UPDATE TiposDeCabelo SET tipo = ?, cor = ?, comprimento = ?, is_natural = ? WHERE id = ?";
+    public static void atualizar(TiposDeCabelo cabelo) {
+        String sql = "UPDATE TiposDeCabelo SET tipo = ?, cor = ?, comprimento = ?, isNatural = ? WHERE id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, cabelo.getTipo());
             stmt.setString(2, cabelo.getCor());
@@ -95,11 +93,10 @@ public class TiposDeCabeloDAO {
         }
     }
 
-    public void excluir(int id) {
+    public static void excluir(int id) {
         String sql = "DELETE FROM TiposDeCabelo WHERE id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             stmt.executeUpdate();

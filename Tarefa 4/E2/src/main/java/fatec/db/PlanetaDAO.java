@@ -11,12 +11,11 @@ import fatec.classes.Planeta;
 
 public class PlanetaDAO {
 
-    public void inserir(Planeta planeta) {
-        String sql = "INSERT INTO planeta (nome, massa, diametro, distanciaDoSol, temAnel) VALUES (?, ?, ?, ?, ?)";
+    public static void inserir(Planeta planeta) {
+        String sql = "INSERT INTO planeta (nome, diametro, distanciaDoSol, temAnel) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, planeta.getNome());
-            stmt.setDouble(2, planeta.getMassa());
             stmt.setDouble(3, planeta.getDiametro());
             stmt.setDouble(4, planeta.getDistanciaDoSol());
             stmt.setBoolean(5, planeta.isTemAnel());
@@ -27,7 +26,7 @@ public class PlanetaDAO {
         }
     }
 
-    public Planeta buscarPorId(int id) {
+    public static Planeta buscarPorId(int id) {
         String sql = "SELECT * FROM planeta WHERE id = ?";
         Planeta planeta = null;
 
@@ -37,8 +36,8 @@ public class PlanetaDAO {
 
             if (rs.next()) {
                 planeta = new Planeta(
+                        rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getDouble("massa"),
                         rs.getDouble("diametro"),
                         rs.getDouble("distanciaDoSol"),
                         rs.getBoolean("temAnel")
@@ -52,15 +51,15 @@ public class PlanetaDAO {
         return planeta;
     }
 
-    public List<Planeta> listar() {
+    public static List<Planeta> listar() {
         String sql = "SELECT * FROM planeta";
         List<Planeta> planetas = new ArrayList<>();
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 Planeta planeta = new Planeta(
+                        rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getDouble("massa"),
                         rs.getDouble("diametro"),
                         rs.getDouble("distanciaDoSol"),
                         rs.getBoolean("temAnel")
@@ -75,12 +74,11 @@ public class PlanetaDAO {
         return planetas;
     }
 
-    public void atualizar(Planeta planeta) {
-        String sql = "UPDATE planeta SET nome = ?, massa = ?, diametro = ?, distanciaDoSol = ?, temAnel = ? WHERE id = ?";
+    public static void atualizar(Planeta planeta) {
+        String sql = "UPDATE planeta SET nome = ?, diametro = ?, distanciaDoSol = ?, temAnel = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, planeta.getNome());
-            stmt.setDouble(2, planeta.getMassa());
             stmt.setDouble(3, planeta.getDiametro());
             stmt.setDouble(4, planeta.getDistanciaDoSol());
             stmt.setBoolean(5, planeta.isTemAnel());
@@ -92,7 +90,7 @@ public class PlanetaDAO {
         }
     }
 
-    public void excluir(int id) {
+    public static void excluir(int id) {
         String sql = "DELETE FROM planeta WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {

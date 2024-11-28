@@ -1,6 +1,7 @@
 package fatec.classes;
 
 public class TiposDeCabelo {
+
     private String tipo;
     private String cor;
     private double comprimento;
@@ -8,6 +9,14 @@ public class TiposDeCabelo {
     private int id;
 
     public TiposDeCabelo(String _tipo, String _cor, double _comprimento, boolean _éNatural) {
+        this.tipo = _tipo;
+        this.cor = _cor;
+        this.comprimento = _comprimento;
+        this.isNatural = _éNatural;
+    }
+
+    public TiposDeCabelo(int _id, String _tipo, String _cor, double _comprimento, boolean _éNatural) {
+        this.id = _id;
         this.tipo = _tipo;
         this.cor = _cor;
         this.comprimento = _comprimento;
@@ -69,10 +78,10 @@ public class TiposDeCabelo {
     }
 
     public String Pentear() {
-        return("O cabelo foi penteado.");
+        return ("O cabelo foi penteado.");
     }
-    
+
     public int getId() {
-    return (this.id);
-}
+        return (this.id);
+    }
 }

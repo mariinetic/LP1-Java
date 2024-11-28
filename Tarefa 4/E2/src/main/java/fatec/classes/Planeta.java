@@ -2,15 +2,20 @@ package fatec.classes;
 
 public class Planeta {
     private String nome;
-    private double massa;
     private double diametro;
     private double distanciaDoSol;
     private boolean temAnel;
     private int id;
 
-    public Planeta(String _nome, double _massa, double _diametro, double _distanciaDoSol, boolean _temAnel) {
+    public Planeta(String _nome, double _diametro, double _distanciaDoSol, boolean _temAnel) {
         this.nome = _nome;
-        this.massa = _massa;
+        this.diametro = _diametro;
+        this.distanciaDoSol = _distanciaDoSol;
+        this.temAnel = _temAnel;
+    }
+    public Planeta(int _id, String _nome, double _diametro, double _distanciaDoSol, boolean _temAnel) {
+        this.id = _id;
+        this.nome = _nome;
         this.diametro = _diametro;
         this.distanciaDoSol = _distanciaDoSol;
         this.temAnel = _temAnel;
@@ -22,14 +27,6 @@ public class Planeta {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public double getMassa() {
-        return massa;
-    }
-
-    public void setMassa(double massa) {
-        this.massa = massa;
     }
 
     public double getDiametro() {
@@ -63,16 +60,6 @@ public class Planeta {
             return this.nome + " está mais próximo do Sol do que " + outro.nome;
         } else {
             return this.nome + " e " + outro.nome + " estão à mesma distância do Sol.";
-        }
-    }
-
-    String compararMassa(Planeta outro) {
-        if (this.massa > outro.massa) {
-            return this.nome + " tem uma massa maior que " + outro.nome;
-        } else if (this.massa < outro.massa) {
-            return this.nome + " tem uma massa menor que " + outro.nome;
-        } else {
-            return this.nome + " e " + outro.nome + " têm a mesma massa.";
         }
     }
 

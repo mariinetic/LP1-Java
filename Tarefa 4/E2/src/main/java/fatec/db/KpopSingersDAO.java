@@ -11,8 +11,8 @@ import fatec.classes.KpopSingers;
 
 public class KpopSingersDAO {
 
-    public void inserir(KpopSingers singer) {
-        String sql = "INSERT INTO KpopSingers (nome, idade, grupo, altura) VALUES (?, ?, ?, ?)";
+    public static void inserir(KpopSingers singer) {
+        String sql = "INSERT INTO KpopSingers (nome, idade, grupo) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -20,7 +20,7 @@ public class KpopSingersDAO {
             stmt.setString(1, singer.getNome());
             stmt.setInt(2, singer.getIdade());
             stmt.setString(3, singer.getGrupo());
-            stmt.setDouble(4, singer.getAltura());
+            
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -28,7 +28,7 @@ public class KpopSingersDAO {
         }
     }
 
-    public KpopSingers buscarPorId(int id) {
+    public static KpopSingers buscarPorId(int id) {
         String sql = "SELECT * FROM KpopSingers WHERE id = ?";
         KpopSingers singer = null;
 
@@ -42,8 +42,7 @@ public class KpopSingersDAO {
                 singer = new KpopSingers(
                         rs.getString("nome"),
                         rs.getInt("idade"),
-                        rs.getString("grupo"),
-                        rs.getDouble("altura")
+                        rs.getString("grupo")
                 );
             }
 
@@ -54,7 +53,7 @@ public class KpopSingersDAO {
         return singer;
     }
 
-    public List<KpopSingers> listar() {
+    public static List<KpopSingers> listar() {
         String sql = "SELECT * FROM KpopSingers";
         List<KpopSingers> singers = new ArrayList<>();
 
@@ -64,10 +63,10 @@ public class KpopSingersDAO {
 
             while (rs.next()) {
                 KpopSingers singer = new KpopSingers(
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getInt("idade"),
-                        rs.getString("grupo"),
-                        rs.getDouble("altura")
+                        rs.getString("grupo")
                 );
                 singers.add(singer);
             }
@@ -79,8 +78,8 @@ public class KpopSingersDAO {
         return singers;
     }
 
-    public void atualizar(KpopSingers singer) {
-        String sql = "UPDATE KpopSingers SET nome = ?, idade = ?, grupo = ?, altura = ? WHERE id = ?";
+    public static void atualizar(KpopSingers singer) {
+        String sql = "UPDATE KpopSingers SET nome = ?, idade = ?, grupo = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -88,7 +87,6 @@ public class KpopSingersDAO {
             stmt.setString(1, singer.getNome());
             stmt.setInt(2, singer.getIdade());
             stmt.setString(3, singer.getGrupo());
-            stmt.setDouble(4, singer.getAltura());
             stmt.setInt(5, singer.getId());
             stmt.executeUpdate();
 
@@ -97,7 +95,7 @@ public class KpopSingersDAO {
         }
     }
 
-    public void excluir(int id) {
+    public static void excluir(int id) {
         String sql = "DELETE FROM KpopSingers WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();

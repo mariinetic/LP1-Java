@@ -8,11 +8,16 @@ public class KpopSingers {
     private double altura;
     private int id;
 
-    public KpopSingers(String _nome, int _idade, String _grupo, double altura) {
+    public KpopSingers(String _nome, int _idade, String _grupo) {
         this.nome = _nome;
         this.idade = _idade;
         this.grupo = _grupo;
-        this.altura = altura;
+    }
+    public KpopSingers(int _id, String _nome, int _idade, String _grupo) {
+        this.id = _id;
+        this.nome = _nome;
+        this.idade = _idade;
+        this.grupo = _grupo;
     }
 
     public String getNome() {

@@ -1,16 +1,18 @@
 package fatec.db;
 
-import fatec.classes.Cachorro;
-import fatec.db.DatabaseConnection;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fatec.classes.Cachorro;
+
 public class CachorroDAO {
 
-    public void inserir(Cachorro cachorro) {
-        String sql = "INSERT INTO Cachorro (nome, raca, peso, idade) VALUES (?, ?, ?, ?)";
+    public static void inserir(Cachorro cachorro) {
+        String sql = "INSERT INTO Cachorro (nome, raca, peso) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -18,7 +20,6 @@ public class CachorroDAO {
             stmt.setString(1, cachorro.getNome());
             stmt.setString(2, cachorro.getRaca());
             stmt.setDouble(3, cachorro.getPeso());
-            stmt.setInt(4, cachorro.getIdade());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -26,7 +27,7 @@ public class CachorroDAO {
         }
     }
 
-    public Cachorro buscarPorId(int id) {
+    public static Cachorro buscarPorId(int id) {
         String sql = "SELECT * FROM Cachorro WHERE id = ?";
         Cachorro cachorro = null;
 
@@ -40,8 +41,7 @@ public class CachorroDAO {
                 cachorro = new Cachorro(
                         rs.getString("nome"),
                         rs.getString("raca"),
-                        rs.getDouble("peso"),
-                        rs.getInt("idade")
+                        rs.getDouble("peso")
                 );
             }
 
@@ -52,7 +52,7 @@ public class CachorroDAO {
         return cachorro;
     }
 
-    public List<Cachorro> listar() {
+    public static List<Cachorro> listar() {
         String sql = "SELECT * FROM Cachorro";
         List<Cachorro> cachorros = new ArrayList<>();
 
@@ -62,10 +62,10 @@ public class CachorroDAO {
 
             while (rs.next()) {
                 Cachorro cachorro = new Cachorro(
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("raca"),
-                        rs.getDouble("peso"),
-                        rs.getInt("idade")
+                        rs.getDouble("peso")
                 );
                 cachorros.add(cachorro);
             }
@@ -77,8 +77,8 @@ public class CachorroDAO {
         return cachorros;
     }
 
-    public void atualizar(Cachorro cachorro) {
-        String sql = "UPDATE Cachorro SET nome = ?, raca = ?, peso = ?, idade = ? WHERE id = ?";
+    public static void atualizar(Cachorro cachorro) {
+        String sql = "UPDATE Cachorro SET nome = ?, raca = ?, peso = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -86,7 +86,6 @@ public class CachorroDAO {
             stmt.setString(1, cachorro.getNome());
             stmt.setString(2, cachorro.getRaca());
             stmt.setDouble(3, cachorro.getPeso());
-            stmt.setInt(4, cachorro.getIdade());
             stmt.setInt(5, cachorro.getId());
             stmt.executeUpdate();
 
@@ -95,7 +94,7 @@ public class CachorroDAO {
         }
     }
 
-    public void excluir(int id) {
+    public static void excluir(int id) {
         String sql = "DELETE FROM Cachorro WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection();

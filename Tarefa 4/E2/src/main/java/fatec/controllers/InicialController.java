@@ -15,7 +15,7 @@ public class InicialController {
     private Button enterButton; 
     @FXML
     private void handleEnter(javafx.event.ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fatec/views/class-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/class-view.fxml"));
             Parent root = loader.load();
 
             Stage currentStage = (Stage) enterButton.getScene().getWindow();

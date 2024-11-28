@@ -13,12 +13,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fatec.controllers.ClassController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fatec.controllers.ClassController">
    <children>
       <TabPane fx:id="tbcInfo" prefHeight="551.0" prefWidth="882.0" style="-fx-background-color: #f8bbd0;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <!-- Tab para FLORES -->
-          <Tab fx:id="tbPageFlores" style="-fx-background-color: #f48fb1;" text="🌸 FLORES">
+          <Tab fx:id="tbPageFlores" onSelectionChanged="#tbSelectedFlores" style="-fx-background-color: #f48fb1;" text="🌸 FLORES">
             <content>
               <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20; -fx-background-color: #fce4ec;">
                 <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #880e4f;" text="🌸 Cadastro de Flores" />

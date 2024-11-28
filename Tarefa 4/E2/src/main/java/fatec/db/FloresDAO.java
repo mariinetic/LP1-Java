@@ -11,7 +11,7 @@ import fatec.classes.Flores;
 
 public class FloresDAO {
 
-    public void inserir(Flores flores) {
+    public static void inserir(Flores flores) {
         String sql = "INSERT INTO Flores (nome, cor, tipo) VALUES (?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -26,7 +26,7 @@ public class FloresDAO {
         }
     }
 
-    public Flores buscarPorId(int id) {
+    public static Flores buscarPorId(int id) {
         String sql = "SELECT * FROM Flores WHERE id = ?";
         Flores flores = null;
 
@@ -50,7 +50,7 @@ public class FloresDAO {
         return flores;
     }
 
-    public List<Flores> listar() {
+    public static List<Flores> listar() {
         String sql = "SELECT * FROM Flores";
         List<Flores> floresList = new ArrayList<>();
 
@@ -58,6 +58,7 @@ public class FloresDAO {
 
             while (rs.next()) {
                 Flores flores = new Flores(
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("cor"),
                         rs.getString("tipo")
@@ -72,7 +73,7 @@ public class FloresDAO {
         return floresList;
     }
 
-    public void atualizar(Flores flores) {
+    public static void atualizar(Flores flores) {
         String sql = "UPDATE Flores SET nome = ?, cor = ?, tipo = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -88,7 +89,7 @@ public class FloresDAO {
         }
     }
 
-    public void excluir(int id) {
+    public static void excluir(int id) {
         String sql = "DELETE FROM Flores WHERE id = ?";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {

@@ -15,8 +15,7 @@ CREATE TABLE Cachorro (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     raca VARCHAR(100) NOT NULL,
-    peso DOUBLE NOT NULL,
-    idade INT NOT NULL
+    peso DOUBLE NOT NULL
 );
 
 CREATE TABLE Flores (
@@ -30,9 +29,7 @@ CREATE TABLE KpopSingers (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
     idade INT NOT NULL,
-    grupo VARCHAR(100) NOT NULL,
-    corCabelo VARCHAR(50),
-    altura DOUBLE NOT NULL
+    grupo VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Planeta (
@@ -84,3 +81,6 @@ CREATE TABLE jogadoras_de_volei (
     numero_camisa INT NOT NULL,
     idade INT NOT NULL
 );
+
+select * from flores;
+select * from kpopsingers;

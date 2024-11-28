@@ -62,6 +62,6 @@ public class Flores {
     }
 
     public int getId() {
-        return (this.id);
+        return this.id;
     }
 }

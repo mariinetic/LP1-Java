@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fatec/views/inicial-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/class-view.fxml"));
         Scene scene = new Scene(loader.load());
         primaryStage.setTitle("E2");
         primaryStage.setScene(scene);
