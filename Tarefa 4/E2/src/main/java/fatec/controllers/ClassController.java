@@ -33,7 +33,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ClassController {
 
-    //#region Flores
+    // #region Flores
     @FXML
     private TextField txtFloresNome;
     @FXML
@@ -80,7 +80,7 @@ public class ClassController {
             mbox.ShowMessageBox("Flor", "Flor cadastrada com sucesso");
             FloresPreencherTableView();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -97,6 +97,7 @@ public class ClassController {
             mbox.ShowMessageBox("Flor", "Flor editada com sucesso");
             FloresPreencherTableView();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -118,6 +119,7 @@ public class ClassController {
             String gifPath = getClass().getResource("/gifs/flor-murchar.gif").toExternalForm();
             mbox.ShowGifMessageBox(title, gifPath);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -128,6 +130,7 @@ public class ClassController {
             String gifPath = getClass().getResource("/gifs/flor-florescer.gif").toExternalForm();
             mbox.ShowGifMessageBox(title, gifPath);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -140,12 +143,12 @@ public class ClassController {
         txtFloresTipo.setText(String.valueOf(florSelecionada.getTipo()));
     }
 
-    @FXML
     private void FloresPreencherTableView() {
         try {
             tableFlores.setItems(FXCollections.observableArrayList(FloresDAO.listar()));
             FloresLimparCampos();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -154,8 +157,9 @@ public class ClassController {
         txtFloresCor.setText("");
         txtFloresTipo.setText("");
     }
-    //#endregion Flores
-    //#region Kpop
+
+    // #endregion Flores
+    // #region Kpop
     @FXML
     private TextField txtKpopNome;
     @FXML
@@ -219,10 +223,11 @@ public class ClassController {
             String grupo = txtKpopGrupo.getText();
 
             KpopSingers cantora = new KpopSingers(cantoraSelecionada.getId(), nome, idade, grupo);
-            KpopSingersDAO.inserir(cantora);
+            KpopSingersDAO.atualizar(cantora);
             mbox.ShowMessageBox("Cantora K-Pop", "Cantora cadastrada com sucesso");
             KpopPreencherTableView();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -244,6 +249,7 @@ public class ClassController {
             String gifPath = getClass().getResource("/gifs/kpop-cantar.gif").toExternalForm();
             mbox.ShowGifMessageBox(title, gifPath);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -254,6 +260,7 @@ public class ClassController {
             String gifPath = getClass().getResource("/gifs/kpop-dancar.gif").toExternalForm();
             mbox.ShowGifMessageBox(title, gifPath);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -266,12 +273,12 @@ public class ClassController {
         txtKpopGrupo.setText(String.valueOf(cantoraSelecionada.getGrupo()));
     }
 
-    @FXML
     private void KpopPreencherTableView() {
         try {
             tableKpop.setItems(FXCollections.observableArrayList(KpopSingersDAO.listar()));
             KpopLimparCampos();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -281,8 +288,8 @@ public class ClassController {
         txtKpopGrupo.setText("");
     }
 
-    //#endregion Kpop
-    //#region Cabelos
+    // #endregion Kpop
+    // #region Cabelos
     @FXML
     private TextField txtCabeloTipo;
     @FXML
@@ -349,6 +356,7 @@ public class ClassController {
             mbox.ShowMessageBox("Cabelos", "Cabelo cadastrado com sucesso");
             CabeloPreencherTableView();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -365,6 +373,7 @@ public class ClassController {
             mbox.ShowMessageBox("Cabelos", "Cabelo Editado com sucesso");
             CabeloPreencherTableView();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -375,6 +384,7 @@ public class ClassController {
             mbox.ShowMessageBox("Cabelos", "Cabelo excluido com sucesso");
             CabeloPreencherTableView();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -385,6 +395,7 @@ public class ClassController {
             String gifPath = getClass().getResource("/gifs/cabelo-cortar.gif").toExternalForm();
             mbox.ShowGifMessageBox(title, gifPath);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -395,6 +406,7 @@ public class ClassController {
             String gifPath = getClass().getResource("/gifs/cabelo-pentear.gif").toExternalForm();
             mbox.ShowGifMessageBox(title, gifPath);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -405,7 +417,7 @@ public class ClassController {
         txtCabeloTipo.setText(cabeloSelecionado.getTipo());
         txtCabeloCor.setText(String.valueOf(cabeloSelecionado.getCor()));
         txtCabeloComprim.setText(String.valueOf(cabeloSelecionado.getComprimento()));
-        chkCabeloNatural.setSelected(cabeloSelecionado.isNatural());
+        chkCabeloNatural.setSelected(cabeloSelecionado.getIsNatural());
     }
 
     private void CabeloPreencherTableView() {
@@ -413,6 +425,7 @@ public class ClassController {
             tableCabelo.setItems(FXCollections.observableArrayList(TiposDeCabeloDAO.listar()));
             CabeloLimparCampos();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -423,16 +436,14 @@ public class ClassController {
         chkCabeloNatural.setSelected(false);
     }
 
-    //#endregion Cabelos
-    //#region Cachorro
+    // #endregion Cabelos
+    // #region Cachorro
     @FXML
     private TextField txtCachorroNome;
     @FXML
     private TextField txtCachorroRaca;
     @FXML
     private TextField txtCachorroPeso;
-    @FXML
-    private TextField txtCachorroIdade;
     @FXML
     private Button btnCachorroCriar;
     @FXML
@@ -442,46 +453,118 @@ public class ClassController {
     @FXML
     private Button btnCachorroLatir;
 
-    private Cachorro cachorro;
+    private Cachorro cachorroSelecionado;
 
     @FXML
-    private void CachorroCriar() {
-        String nome = txtCachorroNome.getText();
-        String raca = txtCachorroRaca.getText();
-        double peso = Double.parseDouble(txtCachorroPeso.getText());
-        int idade = Integer.parseInt(txtCachorroIdade.getText());
+    private TableView<Cachorro> tableCachorro;
+    @FXML
+    private TableColumn<Cachorro, String> CachorroNomeColumn;
+    @FXML
+    private TableColumn<Cachorro, String> CachorroRacaColumn;
+    @FXML
+    private TableColumn<Cachorro, String> CachorroPesoColumn;
 
-        // cachorro = new Cachorro(nome, raca, peso, idade);
-        CachorroDAO dao = new CachorroDAO();
-        dao.inserir(cachorro);
-        mbox.ShowMessageBox("Cachorro", "Cachorro cadastrado com sucesso");
+    @FXML
+    public void tbSelectedCachorro() {
+        CachorroNomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        CachorroRacaColumn.setCellValueFactory(new PropertyValueFactory<>("raca"));
+        CachorroPesoColumn.setCellValueFactory(new PropertyValueFactory<>("peso"));
+
+        CachorroPreencherTableView();
     }
 
     @FXML
-    private void CachorroVerCadastro() {
-        String message = "Nome: " + cachorro.getNome()
-                + "\nRaça: " + cachorro.getRaca()
-                + "\nPeso: " + cachorro.getPeso()
-                + "\nIdade: " + cachorro.getIdade();
-        mbox.ShowMessageBox("Cadastro do Cachorro", message);
+    private void CachorroCriar() {
+        try {
+            String nome = txtCachorroNome.getText();
+            String raca = txtCachorroRaca.getText();
+            double peso = Double.parseDouble(txtCachorroPeso.getText());
+
+            Cachorro cachorro = new Cachorro(nome, raca, peso);
+            CachorroDAO.inserir(cachorro);
+            mbox.ShowMessageBox("Cachorro", "Cachorro cadastrado com sucesso");
+            CachorroPreencherTableView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    private void CachorroEditar() {
+        try {
+            String nome = txtCachorroNome.getText();
+            String raca = txtCachorroRaca.getText();
+            double peso = Double.parseDouble(txtCachorroPeso.getText());
+
+            Cachorro cachorro = new Cachorro(cachorroSelecionado.getId(), nome, raca, peso);
+            CachorroDAO.atualizar(cachorro);
+            mbox.ShowMessageBox("Cachorro", "Cachorro editado com sucesso");
+            CachorroPreencherTableView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void CachorroExcluir() {
+        try {
+            CachorroDAO.excluir(cachorroSelecionado.getId());
+            mbox.ShowMessageBox("Cachorro", "Cachorro excluido com sucesso");
+            CachorroPreencherTableView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void CachorroCorrer() {
-        String title = cachorro.Correr();
-        String gifPath = getClass().getResource("/gifs/cachorro-correr.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = cachorroSelecionado.Correr();
+            String gifPath = getClass().getResource("/gifs/cachorro-correr.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void CachorroLatir() {
-        String title = cachorro.Latir();
-        String gifPath = getClass().getResource("/gifs/cachorro-latir.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = cachorroSelecionado.Latir();
+            String gifPath = getClass().getResource("/gifs/cachorro-latir.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    //#endregion Cachorro
-    //#region Planetas
+    @FXML
+    private void CachorroClickTableView() {
+        CachorroLimparCampos();
+        cachorroSelecionado = tableCachorro.getSelectionModel().getSelectedItem();
+        txtCachorroNome.setText(cachorroSelecionado.getNome());
+        txtCachorroRaca.setText(String.valueOf(cachorroSelecionado.getRaca()));
+        txtCachorroPeso.setText(String.valueOf(cachorroSelecionado.getPeso()));
+    }
+
+    private void CachorroPreencherTableView() {
+        try {
+            tableCachorro.setItems(FXCollections.observableArrayList(CachorroDAO.listar()));
+            CachorroLimparCampos();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void CachorroLimparCampos() {
+        txtCachorroNome.setText("");
+        txtCachorroRaca.setText("");
+        txtCachorroPeso.setText("");
+    }
+
+    // #endregion Cachorro
+    // #region Planetas
     @FXML
     private TextField txtPlanetaNome;
     @FXML
@@ -501,38 +584,138 @@ public class ClassController {
     @FXML
     private Button btnPlanetaOrbitar;
 
-    private Planeta planeta;
+    private Planeta planetaSelecionado;
+
+    @FXML
+    private TableView<Planeta> tablePlaneta;
+    @FXML
+    private TableColumn<Planeta, String> PlanetaNomeColumn;
+    @FXML
+    private TableColumn<Planeta, Double> PlanetaDiametroColumn;
+    @FXML
+    private TableColumn<Planeta, Double> PlanetaSolColumn;
+    @FXML
+    private TableColumn<Planeta, Boolean> PlanetaAnelColumn;
+
+    @FXML
+    public void tbSelectedPlanetas() {
+        PlanetaNomeColumn.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        PlanetaDiametroColumn.setCellValueFactory(new PropertyValueFactory<>("diametro"));
+        PlanetaSolColumn.setCellValueFactory(new PropertyValueFactory<>("distanciaDoSol"));
+        PlanetaAnelColumn.setCellValueFactory(new PropertyValueFactory<>("isTemAnel"));
+
+        PlanetaAnelColumn.setCellFactory(column -> new TableCell<Planeta, Boolean>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item ? "Sim" : "Não");
+                }
+            }
+        });
+
+        PlanetaPreencherTableView();
+    }
 
     @FXML
     private void PlanetaCriar() {
-        String nome = txtPlanetaNome.getText();
-        double massa = Double.parseDouble(txtPlanetaMassa.getText());
-        double diametro = Double.parseDouble(txtPlanetaDiametro.getText());
-        double distSol = Double.parseDouble(txtPlanetaDistSol.getText());
-        boolean temAnel = chkPlanetaAnel.isSelected();
+        try {
+            String nome = txtPlanetaNome.getText();
+            double diametro = Double.parseDouble(txtPlanetaDiametro.getText());
+            double distSol = Double.parseDouble(txtPlanetaDistSol.getText());
+            boolean temAnel = chkPlanetaAnel.isSelected();
 
-        // planeta = new Planeta(nome, massa, diametro, distSol, temAnel);
-        PlanetaDAO dao = new PlanetaDAO();
-        dao.inserir(planeta);
-        mbox.ShowMessageBox("Planeta", "Planeta cadastrado com sucesso");
+            Planeta planeta = new Planeta(nome, diametro, distSol, temAnel);
+            PlanetaDAO.inserir(planeta);
+            mbox.ShowMessageBox("Planeta", "Planeta cadastrado com sucesso");
+            PlanetaPreencherTableView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void PlanetaEditar() {
+        try {
+            String nome = txtPlanetaNome.getText();
+            double diametro = Double.parseDouble(txtPlanetaDiametro.getText());
+            double distSol = Double.parseDouble(txtPlanetaDistSol.getText());
+            boolean temAnel = chkPlanetaAnel.isSelected();
+
+            Planeta planeta = new Planeta(planetaSelecionado.getId(), nome, diametro, distSol, temAnel);
+            PlanetaDAO.atualizar(planeta);
+            mbox.ShowMessageBox("Planeta", "Planeta editado com sucesso");
+            PlanetaPreencherTableView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void PlanetaExcluir() {
+        try {
+
+            PlanetaDAO.excluir(planetaSelecionado.getId());
+            mbox.ShowMessageBox("Planeta", "Planeta excluido com sucesso");
+            PlanetaPreencherTableView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void PlanetaGirar() {
-        String title = planeta.Girar();
-        String gifPath = getClass().getResource("/gifs/planeta-girar.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = planetaSelecionado.Girar();
+            String gifPath = getClass().getResource("/gifs/planeta-girar.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void PlanetaOrbitar() {
-        String title = planeta.Orbitar();
-        String gifPath = getClass().getResource("/gifs/planeta-orbitar.gif").toExternalForm();
-        mbox.ShowGifMessageBox(title, gifPath);
+        try {
+            String title = planetaSelecionado.Orbitar();
+            String gifPath = getClass().getResource("/gifs/planeta-orbitar.gif").toExternalForm();
+            mbox.ShowGifMessageBox(title, gifPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
-    //#endregion Planetas
-    //#region Refrigerante
+    @FXML
+    private void PlanetaClickTableView() {
+        PlanetaLimparCampos();
+        planetaSelecionado = tablePlaneta.getSelectionModel().getSelectedItem();
+        txtPlanetaNome.setText(planetaSelecionado.getNome());
+        txtPlanetaDiametro.setText(String.valueOf(planetaSelecionado.getDiametro()));
+        txtPlanetaDistSol.setText(String.valueOf(planetaSelecionado.getDistanciaDoSol()));
+        chkPlanetaAnel.setSelected(planetaSelecionado.getIsTemAnel());
+    }
+
+    private void PlanetaPreencherTableView() {
+        try {
+            tablePlaneta.setItems(FXCollections.observableArrayList(PlanetaDAO.listar()));
+            PlanetaLimparCampos();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void PlanetaLimparCampos() {
+        txtPlanetaNome.setText("");
+        txtPlanetaDiametro.setText("");
+        txtPlanetaDistSol.setText("");
+        chkPlanetaAnel.setSelected(false);
+    }
+
+    // #endregion Planetas
+    // #region Refrigerante
     @FXML
     private TextField txtRefriNome;
     @FXML
@@ -600,8 +783,8 @@ public class ClassController {
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
-    //#endregion Refrigerante
-    //#region Sanrio
+    // #endregion Refrigerante
+    // #region Sanrio
     @FXML
     private TextField txtSanrioNome;
     @FXML
@@ -657,8 +840,8 @@ public class ClassController {
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
-    //#endregion Sanrio
-    //#region Jogadoras de Vôlei
+    // #endregion Sanrio
+    // #region Jogadoras de Vôlei
     @FXML
     private TextField txtVoleiNome;
     @FXML
@@ -723,7 +906,7 @@ public class ClassController {
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
-    //#endregion Jogadoras de Vôlei
+    // #endregion Jogadoras de Vôlei
     // #region Escritório
     @FXML
     private TextField txtOfficeNome;
@@ -777,8 +960,8 @@ public class ClassController {
         mbox.ShowGifMessageBox(title, gifPath);
     }
 
-    //#endregion Escritório
-    //#region Salgadinho
+    // #endregion Escritório
+    // #region Salgadinho
     @FXML
     private TextField txtSalgadSabor;
     @FXML

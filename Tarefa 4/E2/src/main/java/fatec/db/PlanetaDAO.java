@@ -16,9 +16,9 @@ public class PlanetaDAO {
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, planeta.getNome());
-            stmt.setDouble(3, planeta.getDiametro());
-            stmt.setDouble(4, planeta.getDistanciaDoSol());
-            stmt.setBoolean(5, planeta.isTemAnel());
+            stmt.setDouble(2, planeta.getDiametro());
+            stmt.setDouble(3, planeta.getDistanciaDoSol());
+            stmt.setBoolean(4, planeta.getIsTemAnel());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -79,10 +79,10 @@ public class PlanetaDAO {
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, planeta.getNome());
-            stmt.setDouble(3, planeta.getDiametro());
-            stmt.setDouble(4, planeta.getDistanciaDoSol());
-            stmt.setBoolean(5, planeta.isTemAnel());
-            stmt.setInt(6, planeta.getId());
+            stmt.setDouble(2, planeta.getDiametro());
+            stmt.setDouble(3, planeta.getDistanciaDoSol());
+            stmt.setBoolean(4, planeta.getIsTemAnel());
+            stmt.setInt(5, planeta.getId());
             stmt.executeUpdate();
 
         } catch (SQLException e) {

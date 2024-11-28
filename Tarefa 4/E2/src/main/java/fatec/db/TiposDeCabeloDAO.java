@@ -19,7 +19,7 @@ public class TiposDeCabeloDAO {
             stmt.setString(1, cabelo.getTipo());
             stmt.setString(2, cabelo.getCor());
             stmt.setDouble(3, cabelo.getComprimento());
-            stmt.setBoolean(4, cabelo.isNatural());
+            stmt.setBoolean(4, cabelo.getIsNatural());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -84,7 +84,7 @@ public class TiposDeCabeloDAO {
             stmt.setString(1, cabelo.getTipo());
             stmt.setString(2, cabelo.getCor());
             stmt.setDouble(3, cabelo.getComprimento());
-            stmt.setBoolean(4, cabelo.isNatural());
+            stmt.setBoolean(4, cabelo.getIsNatural());
             stmt.setInt(5, cabelo.getId());
             stmt.executeUpdate();
 

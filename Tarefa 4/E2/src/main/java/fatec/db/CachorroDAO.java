@@ -86,7 +86,7 @@ public class CachorroDAO {
             stmt.setString(1, cachorro.getNome());
             stmt.setString(2, cachorro.getRaca());
             stmt.setDouble(3, cachorro.getPeso());
-            stmt.setInt(5, cachorro.getId());
+            stmt.setInt(4, cachorro.getId());
             stmt.executeUpdate();
 
         } catch (SQLException e) {

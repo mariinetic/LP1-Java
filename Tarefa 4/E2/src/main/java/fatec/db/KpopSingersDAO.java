@@ -87,7 +87,7 @@ public class KpopSingersDAO {
             stmt.setString(1, singer.getNome());
             stmt.setInt(2, singer.getIdade());
             stmt.setString(3, singer.getGrupo());
-            stmt.setInt(5, singer.getId());
+            stmt.setInt(4, singer.getId());
             stmt.executeUpdate();
 
         } catch (SQLException e) {

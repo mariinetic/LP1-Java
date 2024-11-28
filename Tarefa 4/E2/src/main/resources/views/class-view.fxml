@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fatec.controllers.ClassController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fatec.controllers.ClassController">
    <children>
       <TabPane fx:id="tbcInfo" prefHeight="551.0" prefWidth="882.0" style="-fx-background-color: #f8bbd0;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -108,7 +108,7 @@
           </Tab>
 
           <!-- Tab para CABELOS -->
-          <Tab onSelectionChanged="#tbSelectedCabelo" style="-fx-background-color: #f48fb1;" text="💇‍♀️ CABELOS">
+          <Tab fx:id="tbPageCabelo" onSelectionChanged="#tbSelectedCabelo" style="-fx-background-color: #f48fb1;" text="💇‍♀️ CABELOS">
             <content>
               <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20; -fx-background-color: #fce4ec;">
                 <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #880e4f;" text="💇‍♀️ Cadastro de Cabelos" />
@@ -118,7 +118,7 @@
                       <ImageView fitHeight="144.0" fitWidth="361.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white; -fx-padding: 5;">
                         <Image url="@../images/cabelo.jpg" />
                       </ImageView>
-                           <TableView fx:id="tableCabelos" prefHeight="144.0" prefWidth="463.0" style="-fx-background-color: white;">
+                           <TableView fx:id="tableCabelo" onMouseClicked="#CabeloClickTableView" prefHeight="144.0" prefWidth="463.0" style="-fx-background-color: white;">
                               <columns>
                                  <TableColumn fx:id="CabeloTipoColumn" prefWidth="135.0" text="Tipo" />
                                  <TableColumn fx:id="CabeloCorColumn" prefWidth="106.0" text="Cor" />
@@ -140,8 +140,8 @@
                               <TextField fx:id="txtCabeloComprim" promptText="Digite o comprimento..." />
                               <CheckBox fx:id="chkCabeloNatural" mnemonicParsing="false" text="Natural?" />
                               <Button fx:id="btnCabeloCriar" onAction="#CabeloCriar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌈 Criar" />
-                              <Button onAction="#CabeloExcluir" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Excluir" />
                               <Button fx:id="btnFloresCriar12" onAction="#CabeloEditar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Editar" />
+                              <Button onAction="#CabeloExcluir" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Excluir" />
                            </children>
                         </HBox>
                   <Label fx:id="tipoCabelo" style="-fx-font-size: 14px;" />
@@ -155,20 +155,21 @@
           </Tab>
 
           <!-- Tab para CACHORRO -->
-          <Tab fx:id="tbPageCachorro" style="-fx-background-color: #f48fb1;" text="🐶 CACHORRO">
+          <Tab fx:id="tbPageCachorro" onSelectionChanged="#tbSelectedCachorro" style="-fx-background-color: #f48fb1;" text="🐶 CACHORRO">
             <content>
               <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20; -fx-background-color: #fce4ec;">
                 <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #880e4f;" text="🐶 Cadastro de Cachorro" />
                 <Separator style="-fx-background-color: #880e4f;" />
                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                         <children>
-                      <ImageView fitHeight="178.0" fitWidth="427.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white; -fx-padding: 5;">
+                      <ImageView fitHeight="177.0" fitWidth="352.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white; -fx-padding: 5;">
                         <Image url="@../images/cachorros.jpeg" />
                       </ImageView>
-                           <TableView prefHeight="211.0" prefWidth="333.0" style="-fx-background-color: white;">
+                           <TableView fx:id="tableCachorro" onMouseClicked="#CachorroClickTableView" prefHeight="147.0" prefWidth="407.0" style="-fx-background-color: white;">
                               <columns>
-                                 <TableColumn prefWidth="180.0" text="1" />
-                                 <TableColumn prefWidth="152.0" text="2" />
+                                 <TableColumn fx:id="CachorroNomeColumn" prefWidth="145.0" text="Nome" />
+                                 <TableColumn fx:id="CachorroRacaColumn" prefWidth="142.0" text="Raça" />
+                                 <TableColumn fx:id="CachorroPesoColumn" prefWidth="119.0" text="Peso" />
                               </columns>
                               <HBox.margin>
                                  <Insets left="30.0" />
@@ -184,8 +185,8 @@
                               <Label fx:id="nomeFlores111" style="-fx-font-size: 14px;" />
                               <TextField fx:id="txtCachorroPeso" promptText="Digite o peso..." />
                               <Button fx:id="btnCachorroCriar" onAction="#CachorroCriar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🐾 Criar" />
-                              <Button fx:id="btnFloresCriar13" onAction="#FloresCriar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Editar" />
-                              <Button fx:id="btnFloresCriar211" onAction="#FloresCriar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Excluir" />
+                              <Button fx:id="btnCachorroEditar" onAction="#CachorroEditar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Editar" />
+                              <Button fx:id="btnFloresCriar211" onAction="#CachorroExcluir" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Excluir" />
                            </children>
                         </HBox>
                   <Label fx:id="nomeCachorro" style="-fx-font-size: 14px;" />
@@ -199,20 +200,22 @@
           </Tab>
 
           <!-- Tab para PLANETAS -->
-          <Tab fx:id="tbPagePlanetas" style="-fx-background-color: #f48fb1;" text="🌍 PLANETAS">
+          <Tab fx:id="tbPagePlanetas" onSelectionChanged="#tbSelectedPlanetas" style="-fx-background-color: #f48fb1;" text="🌍 PLANETAS">
             <content>
               <VBox alignment="CENTER" spacing="15" style="-fx-padding: 20; -fx-background-color: #fce4ec;">
                 <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #880e4f;" text="🌍 Cadastro de Planetas" />
                 <Separator style="-fx-background-color: #880e4f;" />
                      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                         <children>
-                      <ImageView fitHeight="246.0" fitWidth="458.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white; -fx-padding: 5;">
+                      <ImageView fitHeight="246.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: white; -fx-padding: 5;">
                         <Image url="@../images/sistema.png" />
                       </ImageView>
-                           <TableView prefHeight="211.0" prefWidth="333.0" style="-fx-background-color: white;">
+                           <TableView fx:id="tablePlaneta" onMouseClicked="#PlanetaClickTableView" prefHeight="172.0" prefWidth="524.0" style="-fx-background-color: white;">
                               <columns>
-                                 <TableColumn prefWidth="180.0" text="1" />
-                                 <TableColumn prefWidth="152.0" text="2" />
+                                 <TableColumn fx:id="PlanetaNomeColumn" prefWidth="122.0" text="Nome" />
+                                 <TableColumn fx:id="PlanetaDiametroColumn" prefWidth="177.0" text="Diâmetro" />
+                                 <TableColumn fx:id="PlanetaSolColumn" prefWidth="148.0" text="Distância do Sol" />
+                                 <TableColumn fx:id="PlanetaAnelColumn" prefWidth="76.0" text="Tem anel?" />
                               </columns>
                               <HBox.margin>
                                  <Insets left="30.0" />
@@ -229,8 +232,8 @@
                               <TextField fx:id="txtPlanetaDistSol" promptText="Digite a distância do Sol..." />
                               <CheckBox fx:id="chkPlanetaAnel" mnemonicParsing="false" text="Tem anel?" />
                               <Button fx:id="btnPlanetaCriar" onAction="#PlanetaCriar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🪐 Criar" />
-                              <Button fx:id="btnFloresCriar14" onAction="#FloresCriar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Editar" />
-                              <Button fx:id="btnFloresCriar212" onAction="#FloresCriar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Excluir" />
+                              <Button fx:id="btnFloresCriar14" onAction="#PlanetaEditar" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Editar" />
+                              <Button fx:id="btnFloresCriar212" onAction="#PlanetaExcluir" style="-fx-background-color: #d81b60; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10; -fx-background-radius: 15;" text="🌼 Excluir" />
                            </children>
                         </HBox>
                   <Label fx:id="nomePlaneta" style="-fx-font-size: 14px;" />

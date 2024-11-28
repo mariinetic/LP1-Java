@@ -4,7 +4,7 @@ public class Planeta {
     private String nome;
     private double diametro;
     private double distanciaDoSol;
-    private boolean temAnel;
+    private Boolean temAnel;
     private int id;
 
     public Planeta(String _nome, double _diametro, double _distanciaDoSol, boolean _temAnel) {
@@ -45,7 +45,7 @@ public class Planeta {
         this.distanciaDoSol = distanciaDoSol;
     }
 
-    public boolean isTemAnel() {
+    public boolean getIsTemAnel() {
         return temAnel;
     }
 

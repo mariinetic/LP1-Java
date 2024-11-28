@@ -5,7 +5,7 @@ public class TiposDeCabelo {
     private String tipo;
     private String cor;
     private double comprimento;
-    private boolean isNatural;
+    private Boolean isNatural;
     private int id;
 
     public TiposDeCabelo(String _tipo, String _cor, double _comprimento, boolean _éNatural) {
@@ -47,7 +47,7 @@ public class TiposDeCabelo {
         this.comprimento = _comprimento;
     }
 
-    public boolean isNatural() {
+    public boolean getIsNatural() {
         return isNatural;
     }
 
